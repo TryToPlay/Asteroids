@@ -1,0 +1,12 @@
+[files]
+"assets/space.jpg" = ""
+"assets/ship.png" = ""
+"assets/bullet.png" = ""
+"assets/asteroid.png" = ""
+"assets/asteroidhit.wav" = ""
+"assets/shoot.wav" = ""
+"assets/asteroidexplode.wav" = ""
+"assets/shiphit.wav" = ""
+"assets/shipexplode.wav" = ""
+"assets/music.mp3" = ""
+"helper.py" = ""
