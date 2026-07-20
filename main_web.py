@@ -9,8 +9,8 @@ async def main():
 	pygame.mixer.init()
 	pygame.init()
 
-	WIDTH = 1000
-	HEIGHT = 515
+	WIDTH = 2097
+	HEIGHT = 1080
 	window = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN)
 	WIDTH, HEIGHT = window.get_size()
 	FPS = 60
