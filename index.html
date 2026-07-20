@@ -13,14 +13,5 @@
     <canvas id="canvas" style="image-rendering: pixelated;"></canvas>
     <script type="py-game" src="main_web.py"
     config="pyscript.toml"></script>
-    <script>
-        (
-            function () {
-                document.body.querySelector("body").requestFullscreen().then(() => {
-                    document.querySelector("body").style.overflow = "auto";
-                });
-            }
-        ) ();
-    </script>
 </body>
 </html>
