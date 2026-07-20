@@ -14,7 +14,11 @@ async def main():
 	window = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN)
 	WIDTH, HEIGHT = window.get_size()
 	FPS = 60
-	font = pygame.font.SysFont(None, 50)
+	shipSize = 25
+	bulletSize = 6
+	asteroidSize = 50
+	fontSize = 25
+	font = pygame.font.SysFont(None, fontSize)
 	showHitboxes = False
 	FILEPATHS = {
 					"spaceImg": "space.jpg",
@@ -45,14 +49,14 @@ async def main():
 						FILEPATHS["shipHitSfx"], FILEPATHS["shipExplodeSfx"],
 						helper.Vector(WIDTH // 2, HEIGHT // 2),
 						bulletCooldown=0.75, fps=FPS,
-						sizeX=50, sizeY=50)
+						sizeX=shipSize, sizeY=shipSize)
 	shipRotSprites = helper.createRotSprites(ship)					
 
 	bulletDamage = 1
 	bulletSpeed = 20
 	bullet = helper.Bullet(FILEPATHS["bulletImg"], FILEPATHS["shootSfx"],
 							damage=bulletDamage, MaxSpeed=bulletSpeed,
-							sizeX=12, sizeY=12)
+							sizeX=bulletSize, sizeY=bulletSize)
 	bulletRotSprites = helper.createRotSprites(bullet)
 
 	joystick = helper.Joystick(100, 25,
@@ -73,7 +77,7 @@ async def main():
 	asteroid = helper.Asteroid(FILEPATHS["asteroidImg"],
 								FILEPATHS["asteroidHitSfx"], FILEPATHS["asteroidExplodeSfx"],
 								MaxSpeed=asteroidSpeed, health=asteroidHealth, score=asteroidScore,
-								sizeX=100, sizeY=100)
+								sizeX=asteroidSize, sizeY=asteroidSize)
 	asteroidRotSprites = helper.createRotSprites(asteroid)
 	asteroids = []
 	asteroidTimer = helper.Timer(5, FPS)
@@ -113,8 +117,8 @@ async def main():
 		
 		score = round(player.score / 10) * 10
 		window.blit(font.render(str(score), True, white), (10, 10))
-		window.blit(font.render(str(player.ship.health - 1), True, white), (WIDTH - 60, 10))
-		window.blit(shipHealthSprite, (WIDTH - 35, 15))
+		window.blit(font.render(str(player.ship.health - 1), True, white), (WIDTH - 2 * fontSize - 10, 10))
+		window.blit(shipHealthSprite, (WIDTH - fontSize - 10, 15))
 
 		# Events Handling
 
@@ -154,7 +158,7 @@ async def main():
 		if not asteroidTimer.active:
 			asteroid = helper.spawnAsteroid(FILEPATHS["asteroidImg"], FILEPATHS["asteroidHitSfx"], FILEPATHS["asteroidExplodeSfx"],
 											WIDTH, HEIGHT, player, asteroidRotSprites, asteroidSpeed, asteroidHealth, asteroidScore,
-											sizeX=100, sizeY=100)
+											sizeX=asteroidSize, sizeY=asteroidSize)
 			asteroids.append(asteroid)
 			asteroidTimer.activate()
 
