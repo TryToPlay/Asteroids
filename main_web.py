@@ -13,6 +13,7 @@ async def main():
 	HEIGHT = 1080
 	window = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN)
 	WIDTH, HEIGHT = window.get_size()
+	WIDTH, HEIGHT = WIDTH // 2, HEIGHT // 2
 	FPS = 60
 	font = pygame.font.SysFont(None, 100)
 	showHitboxes = False
