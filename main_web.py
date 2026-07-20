@@ -14,10 +14,10 @@ async def main():
 	window = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN)
 	WIDTH, HEIGHT = window.get_size()
 	FPS = 60
-	shipSize = 25
-	bulletSize = 6
-	asteroidSize = 50
-	fontSize = 25
+	shipSize = 50
+	bulletSize = 12
+	asteroidSize = 100
+	fontSize = 50
 	font = pygame.font.SysFont(None, fontSize)
 	showHitboxes = False
 	FILEPATHS = {
@@ -97,7 +97,7 @@ async def main():
 	shipSpeedIncrease = 1.05
 	difficultyScoreIncrease = 1.25
 
-	shipHealthSprite = pygame.transform.scale(pygame.image.load(FILEPATHS["shipImg"]), (fontSize, fontSize))
+	shipHealthSprite = pygame.transform.scale(pygame.image.load(FILEPATHS["shipImg"]), (fontSize // 2, fontSize // 2))
 
 	while True:
 		# Window Control
