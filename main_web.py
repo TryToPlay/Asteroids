@@ -19,7 +19,7 @@ async def main():
 	asteroidSize = 50
 	fontSize = 25
 	font = pygame.font.SysFont(None, fontSize)
-	showHitboxes = True
+	showHitboxes = False
 	FILEPATHS = {
 					"spaceImg": "space.jpg",
 					"shipImg": "ship.png",
@@ -60,13 +60,15 @@ async def main():
 	bulletRotSprites = helper.createRotSprites(bullet)
 
 	joystick = helper.Joystick(100, 25,
-								gray, white,
-								WIDTH // 2 - 10, HEIGHT,
-								WIDTH // 8, HEIGHT // 4)
+							gray, white,
+							WIDTH // 2 - 10, HEIGHT,
+							WIDTH // 4, HEIGHT // 2)
 
 	button = helper.Button(50, white,
 							WIDTH // 2 - 10, HEIGHT,
 							WIDTH - WIDTH // 4, HEIGHT // 2)
+
+
 
 	player = helper.Player(ship, joystick, button,
 							shipRotSprites, bulletRotSprites)
@@ -95,7 +97,7 @@ async def main():
 	shipSpeedIncrease = 1.05
 	difficultyScoreIncrease = 1.25
 
-	shipHealthSprite = pygame.transform.scale(pygame.image.load(FILEPATHS["shipImg"]), (25, 25))
+	shipHealthSprite = pygame.transform.scale(pygame.image.load(FILEPATHS["shipImg"]), (fontSize, fontSize))
 
 	while True:
 		# Window Control
@@ -104,13 +106,13 @@ async def main():
 		background.display(window)
 
 		if showHitboxes:
+			pygame.draw.rect(window, blue, player.joystick.boundRect)
+			pygame.draw.rect(window, red, player.button.boundRect)
 			for bullet in player.bullets:
 				pygame.draw.rect(window, red, bullet.hitbox)
 			for asteroid in asteroids:
 				pygame.draw.rect(window, green, asteroid.hitbox)
 			pygame.draw.rect(window, blue, player.ship.hitbox)
-			pygame.draw.rect(window, red, player.joystick.boundRect)
-			pygame.draw.rect(window, red, player.button.boundRect)
 
 		player.display(window, FPS)
 
