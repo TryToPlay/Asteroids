@@ -19,7 +19,7 @@ async def main():
 	asteroidSize = 50
 	fontSize = 25
 	font = pygame.font.SysFont(None, fontSize)
-	showHitboxes = False
+	showHitboxes = True
 	FILEPATHS = {
 					"spaceImg": "space.jpg",
 					"shipImg": "ship.png",
@@ -109,6 +109,8 @@ async def main():
 			for asteroid in asteroids:
 				pygame.draw.rect(window, green, asteroid.hitbox)
 			pygame.draw.rect(window, blue, player.ship.hitbox)
+			pygame.draw.rect(window, red, player.joystick.boundRect)
+			pygame.draw.rect(window, red, player.button.boundRect)
 
 		player.display(window, FPS)
 
