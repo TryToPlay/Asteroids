@@ -75,7 +75,7 @@ asteroids = []
 asteroidTimer = helper.Timer(5, FPS)
 
 difficultyScore = 10
-difficultyTimer = helper.Timer(10, FPS)
+difficultyTimer = helper.Timer(2, FPS)
 difficultyTimer.activate()
 asteroidCooldownDecrease = 0.90
 asteroidSpeedIncrease = 1.10

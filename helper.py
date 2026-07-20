@@ -242,9 +242,10 @@ class Asteroid(Object):
 		self.hitSound.set_volume(0.5)
 		self.explodeSound = pygame.mixer.Sound(explodeSfx)
 
-def spawnAsteroid(asteroidImg, asteroidHitSfx, asteroidExplodeSfx, width, height, player, asteroidRotSprites, asteroidSpeed, asteroidHealth, asteroidScore):
+def spawnAsteroid(asteroidImg, asteroidHitSfx, asteroidExplodeSfx, width, height, player, asteroidRotSprites, asteroidSpeed, asteroidHealth, asteroidScore, sizeX=200, sizeY=200):
 	asteroid = Asteroid(asteroidImg, asteroidHitSfx, asteroidExplodeSfx,
-						MaxSpeed=asteroidSpeed, health=asteroidHealth, score=asteroidScore)
+						MaxSpeed=asteroidSpeed, health=asteroidHealth, score=asteroidScore,
+						sizeX=sizeX, sizeY=sizeY)
 	position = randBoundaryPosition(width, height,
 									asteroid.hitbox.width / 2,
 									asteroid.hitbox.height / 2)

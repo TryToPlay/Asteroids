@@ -9,13 +9,12 @@ async def main():
 	pygame.mixer.init()
 	pygame.init()
 
-	WIDTH = 2097
-	HEIGHT = 1080
-	window = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN)
+	WIDTH = 1000
+	HEIGHT = 515
+	window = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE)
 	WIDTH, HEIGHT = window.get_size()
-	WIDTH, HEIGHT = WIDTH // 2, HEIGHT // 2
 	FPS = 60
-	font = pygame.font.SysFont(None, 100)
+	font = pygame.font.SysFont(None, 50)
 	showHitboxes = False
 	FILEPATHS = {
 					"spaceImg": "space.jpg",
@@ -45,21 +44,23 @@ async def main():
 	ship = helper.Ship(FILEPATHS["shipImg"],
 						FILEPATHS["shipHitSfx"], FILEPATHS["shipExplodeSfx"],
 						helper.Vector(WIDTH // 2, HEIGHT // 2),
-						bulletCooldown=0.75, fps=FPS)
+						bulletCooldown=0.75, fps=FPS,
+						sizeX=50, sizeY=50)
 	shipRotSprites = helper.createRotSprites(ship)					
 
 	bulletDamage = 1
 	bulletSpeed = 20
 	bullet = helper.Bullet(FILEPATHS["bulletImg"], FILEPATHS["shootSfx"],
-							damage=bulletDamage, MaxSpeed=bulletSpeed)
+							damage=bulletDamage, MaxSpeed=bulletSpeed,
+							sizeX=12, sizeY=12)
 	bulletRotSprites = helper.createRotSprites(bullet)
 
-	joystick = helper.Joystick(200, 50,
+	joystick = helper.Joystick(100, 25,
 								gray, white,
 								WIDTH // 2 - 10, HEIGHT,
-								WIDTH // 4, HEIGHT // 2)
+								WIDTH // 8, HEIGHT // 4)
 
-	button = helper.Button(100, white,
+	button = helper.Button(50, white,
 							WIDTH // 2 - 10, HEIGHT,
 							WIDTH - WIDTH // 4, HEIGHT // 2)
 
@@ -71,7 +72,8 @@ async def main():
 	asteroidScore = 100
 	asteroid = helper.Asteroid(FILEPATHS["asteroidImg"],
 								FILEPATHS["asteroidHitSfx"], FILEPATHS["asteroidExplodeSfx"],
-								MaxSpeed=asteroidSpeed, health=asteroidHealth, score=asteroidScore)
+								MaxSpeed=asteroidSpeed, health=asteroidHealth, score=asteroidScore,
+								sizeX=100, sizeY=100)
 	asteroidRotSprites = helper.createRotSprites(asteroid)
 	asteroids = []
 	asteroidTimer = helper.Timer(5, FPS)
@@ -89,7 +91,7 @@ async def main():
 	shipSpeedIncrease = 1.05
 	difficultyScoreIncrease = 1.25
 
-	shipHealthSprite = pygame.transform.scale(pygame.image.load(FILEPATHS["shipImg"]), (50, 50))
+	shipHealthSprite = pygame.transform.scale(pygame.image.load(FILEPATHS["shipImg"]), (25, 25))
 
 	while True:
 		# Window Control
@@ -111,8 +113,8 @@ async def main():
 		
 		score = round(player.score / 10) * 10
 		window.blit(font.render(str(score), True, white), (10, 10))
-		window.blit(font.render(str(player.ship.health - 1), True, white), (WIDTH - 110, 10))
-		window.blit(shipHealthSprite, (WIDTH - 60, 15))
+		window.blit(font.render(str(player.ship.health - 1), True, white), (WIDTH - 60, 10))
+		window.blit(shipHealthSprite, (WIDTH - 35, 15))
 
 		# Events Handling
 
@@ -151,7 +153,8 @@ async def main():
 		asteroidTimer.update()
 		if not asteroidTimer.active:
 			asteroid = helper.spawnAsteroid(FILEPATHS["asteroidImg"], FILEPATHS["asteroidHitSfx"], FILEPATHS["asteroidExplodeSfx"],
-											WIDTH, HEIGHT, player, asteroidRotSprites, asteroidSpeed, asteroidHealth, asteroidScore)
+											WIDTH, HEIGHT, player, asteroidRotSprites, asteroidSpeed, asteroidHealth, asteroidScore,
+											sizeX=100, sizeY=100)
 			asteroids.append(asteroid)
 			asteroidTimer.activate()
 
