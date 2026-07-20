@@ -11,7 +11,7 @@ async def main():
 
 	WIDTH = 1000
 	HEIGHT = 515
-	window = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE)
+	window = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN)
 	WIDTH, HEIGHT = window.get_size()
 	FPS = 60
 	font = pygame.font.SysFont(None, 50)
