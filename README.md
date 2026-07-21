@@ -21,3 +21,5 @@ The major benefits I got from working on this project are:
 This is definitely one of the few projects which I enjoyed making to the fullest, albeit there were some times where it didn't feel like that.
 
 At the end of the day, the tools and knowledge I acquired from this project will be beneficial for my future projects.
+
+Link to web version: https://trytoplay.github.io/Asteroids/
