@@ -11,7 +11,7 @@ async def main():
 
 	WIDTH = 2097
 	HEIGHT = 1080
-	window = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN)
+	window = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN, pygame.RESIZABLE)
 	WIDTH, HEIGHT = window.get_size()
 	FPS = 60
 	shipSize = 50
@@ -20,6 +20,7 @@ async def main():
 	fontSize = 50
 	font = pygame.font.SysFont(None, fontSize)
 	showHitboxes = False
+	showBoundrects = False
 	FILEPATHS = {
 					"spaceImg": "space.jpg",
 					"shipImg": "ship.png",
@@ -68,8 +69,6 @@ async def main():
 							WIDTH // 2 - 10, HEIGHT,
 							WIDTH - WIDTH // 4, HEIGHT // 2)
 
-
-
 	player = helper.Player(ship, joystick, button,
 							shipRotSprites, bulletRotSprites)
 
@@ -85,7 +84,7 @@ async def main():
 	asteroidTimer = helper.Timer(5, FPS)
 
 	difficultyScore = 10
-	difficultyTimer = helper.Timer(2, FPS)
+	difficultyTimer = helper.Timer(5, FPS)
 	difficultyTimer.activate()
 	asteroidCooldownDecrease = 0.90
 	asteroidSpeedIncrease = 1.10
@@ -106,13 +105,14 @@ async def main():
 		background.display(window)
 
 		if showHitboxes:
-			pygame.draw.rect(window, blue, player.joystick.boundRect)
-			pygame.draw.rect(window, red, player.button.boundRect)
 			for bullet in player.bullets:
 				pygame.draw.rect(window, red, bullet.hitbox)
 			for asteroid in asteroids:
 				pygame.draw.rect(window, green, asteroid.hitbox)
 			pygame.draw.rect(window, blue, player.ship.hitbox)
+		if showBoundrects:
+			pygame.draw.rect(window, blue, player.joystick.boundRect)
+			pygame.draw.rect(window, red, player.button.boundRect)
 
 		player.display(window, FPS)
 
@@ -143,6 +143,16 @@ async def main():
 
 			if event.type == pygame.FINGERUP:
 				player.fingerUp(event.finger_id)
+			
+			if event.type == pygame.KEYDOWN:
+				if event.key == pygame.K_LSHIFT or event.key == pygame.K_RSHIFT:
+					player.button.pressed = True
+			
+			if event.type == pygame.KEYUP:
+				if event.key == pygame.K_LSHIFT or event.key == pygame.K_RSHIFT:
+					player.button.pressed = False
+
+		helper.movePlayerFromKeys(player)
 			
 		# Logic Handling
 		

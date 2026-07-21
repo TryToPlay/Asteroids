@@ -363,6 +363,52 @@ class Player:
 				pass
 		return asteroidsToRemove
 
+def setPlayerSpeedForKey(player, vector):
+	player.ship.speed = vector.mul(500 * player.ship.MAXSPEED)
+	angle = getAngle_fromVector(vector)
+	player.ship.rotate(angle, player.shipRotSprites)
+
+def movePlayerFromKeys(player):
+	key = pygame.key.get_pressed()
+	if key[pygame.K_d] or key[pygame.K_RIGHT]:
+		vector = Vector(-1, 0).unit()
+		if key[pygame.K_s] or key[pygame.K_DOWN]:
+			vector = Vector(-1, -1).unit()
+		elif key[pygame.K_w] or key[pygame.K_UP]:
+			vector = Vector(-1, 1).unit()
+
+		setPlayerSpeedForKey(player, vector)
+		
+	elif key[pygame.K_a] or key[pygame.K_LEFT]:
+		vector = Vector(1, 0).unit()
+		if key[pygame.K_s] or key[pygame.K_DOWN]:
+			vector = Vector(1, -1).unit()
+		elif key[pygame.K_w] or key[pygame.K_UP]:
+			vector = Vector(1, 1).unit()
+
+		setPlayerSpeedForKey(player, vector)
+		
+	elif key[pygame.K_s] or key[pygame.K_DOWN]:
+		vector = Vector(0, -1).unit()
+		if key[pygame.K_d] or key[pygame.K_RIGHT]:
+			vector = Vector(-1, -1).unit()
+		elif key[pygame.K_a] or key[pygame.K_LEFT]:
+			vector = Vector(1, -1).unit()
+
+		setPlayerSpeedForKey(player, vector)
+		
+	elif key[pygame.K_w] or key[pygame.K_UP]:
+		vector = Vector(0, 1).unit()
+		if key[pygame.K_d] or key[pygame.K_RIGHT]:
+			vector = Vector(-1, 1).unit()
+		elif key[pygame.K_a] or key[pygame.K_LEFT]:
+			vector = Vector(1, 1).unit()
+			
+		setPlayerSpeedForKey(player, vector)
+
+	else:
+		player.ship.setSpeedZero()
+
 class Background:
 	def __init__(self, sprite, width=2097, height=1080):
 		self.sprite = pygame.transform.scale(pygame.image.load(sprite), (width, height))
